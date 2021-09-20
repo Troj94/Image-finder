@@ -1,50 +1,43 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useState } from 'react';
 import { Notify } from 'notiflix';
 import css from 'components/SearchForm/SearchForm.module.css';
 
-export class SearchForm extends Component {
-  state = {
-    searchQuery: '',
-  };
+export function SearchForm({ onSubmit }) {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  handleSearchQuerySubmit = event => {
+  function handleSearchQuerySubmit(event) {
     event.preventDefault();
 
-    this.state.searchQuery.trim() === ''
+    searchQuery.trim() === ''
       ? Notify.warning('Search field is empty')
-      : this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
-  };
-
-  handleSearchQueryChange = event => {
-    this.setState({ searchQuery: event.currentTarget.value });
-  };
-
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form
-          className={css.SearchForm}
-          onSubmit={this.handleSearchQuerySubmit}
-        >
-          <button className={css.SearchFormButton} type="submit">
-            <span className={css.SearchFormButtonLabel}>Search</span>
-          </button>
-          <input
-            className={css.SearchFormInput}
-            name="query"
-            value={this.state.searchQuery}
-            onChange={this.handleSearchQueryChange}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
+      : onSubmit(searchQuery);
+    setSearchQuery('');
   }
+
+  function handleSearchQueryChange(event) {
+    setSearchQuery(event.currentTarget.value);
+  }
+
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={handleSearchQuerySubmit}>
+        <button className={css.SearchFormButton} type="submit">
+          <span className={css.SearchFormButtonLabel}>Search</span>
+        </button>
+        <input
+          className={css.SearchFormInput}
+          name="query"
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
 }
 
 SearchForm.propTypes = {
