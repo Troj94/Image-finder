@@ -35,8 +35,11 @@ function App() {
             setImages(prevImages => [...prevImages, ...images]);
             scrollTo();
           }
+          if (images.length === 0) {
+            Notify.failure("Can't find images for your query");
+          }
         })
-        .catch(() => Notify.failure("Can't find images for your query"))
+        .catch(() => Notify.failure('Something wrong'))
         .finally(() => setLoaderIsActive(false));
     }
 
