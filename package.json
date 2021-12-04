@@ -1,6 +1,6 @@
 {
-  "homepage": "https://troj94.github.io/goit-react-hw-04-hooks-images/",
-  "name": "goit-react-hw-04-hooks-images",
+  "homepage": "https://troj94.github.io/Image-finder/",
+  "name": "image-finder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
